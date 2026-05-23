@@ -1,0 +1,7 @@
+[safe]
+	directory = /storage/emulated/0/Download/anything (marketplace-files)
+[user]
+	email = jebal.ads@gmail.com
+	name = jebalads-del
+[credential]
+	helper = store
