@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { authUtils } from '@/lib/auth';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,22 +25,21 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      console.log('[v0] Login attempt:', { email });
+      console.log('[v0] Admin login attempt:', { email });
       
-      const result = await authUtils.login(email, password);
+      const result = await authUtils.adminLogin(email, password);
 
-      console.log('[v0] Login result:', result);
+      console.log('[v0] Admin login result:', result);
 
       if (result.success) {
-        // Add a small delay to ensure localStorage is written
         setTimeout(() => {
-          router.push('/');
+          router.push('/dashboard');
         }, 100);
       } else {
         setError(result.error || 'خطأ في تسجيل الدخول');
       }
     } catch (err) {
-      console.log('[v0] Login error:', err);
+      console.log('[v0] Admin login error:', err);
       setError('حدث خطأ أثناء تسجيل الدخول');
     } finally {
       setIsLoading(false);
@@ -57,8 +56,11 @@ export default function LoginPage() {
         <div className="bg-white rounded-lg shadow-lg p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-black text-foreground mb-2">سويفت موتورز</h1>
-            <p className="text-muted-foreground">تسجيل الدخول إلى حسابك</p>
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
+              <span className="text-white font-black text-lg">⚙️</span>
+            </div>
+            <h1 className="text-3xl font-black text-foreground">لوحة التحكم</h1>
+            <p className="text-muted-foreground mt-2">دخول المسؤول</p>
           </div>
 
           {/* Error Message */}
@@ -73,15 +75,15 @@ export default function LoginPage() {
             {/* Email */}
             <div>
               <label className="block text-sm font-semibold text-foreground mb-2">
-                البريد الإلكتروني أو اسم المستخدم
+                البريد الإلكتروني
               </label>
               <div className="relative">
                 <Mail className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
                 <input
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="example@email.com"
+                  placeholder="admin@example.com"
                   className="w-full pr-10 pl-4 py-3 border border-border rounded-lg bg-input focus:outline-none focus:ring-2 focus:ring-primary text-right"
                   required
                 />
@@ -114,47 +116,32 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Forgot Password */}
-            <div className="text-right">
-              <Link
-                href="/forgot-password"
-                className="text-primary hover:text-primary/80 text-sm font-semibold transition-colors"
-              >
-                هل نسيت كلمة المرور؟
-              </Link>
-            </div>
-
-            {/* Login Button */}
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 mt-6"
+              className="w-full py-3 bg-primary text-primary-foreground font-bold rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'جاري التحميل...' : 'تسجيل الدخول'}
+              {isLoading ? 'جاري الدخول...' : 'دخول'}
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-border"></div>
-            <span className="text-sm text-muted-foreground">أو</span>
-            <div className="flex-1 h-px bg-border"></div>
+          {/* Back Link */}
+          <div className="mt-6 text-center">
+            <Link
+              href="/login"
+              className="text-primary hover:text-primary/80 text-sm font-semibold transition-colors"
+            >
+              العودة للدخول العام
+            </Link>
           </div>
 
-          {/* Sign Up Link */}
-          <p className="text-center text-muted-foreground">
-            ليس لديك حساب؟{' '}
-            <Link href="/register" className="text-primary hover:text-primary/80 font-semibold">
-              أنشئ حساباً جديداً
-            </Link>
-          </p>
-        </div>
-
-        {/* Demo Credentials */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
-          <p className="text-sm text-blue-900 font-semibold mb-2">بيانات المستخدم التجريبي:</p>
-          <p className="text-xs text-blue-800">البريد: user@example.com</p>
-          <p className="text-xs text-blue-800">كلمة المرور: password123</p>
+          {/* Demo Credentials */}
+          <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
+            <p className="text-sm text-blue-900 font-semibold mb-2">بيانات دخول المسؤول:</p>
+            <p className="text-xs text-blue-800">البريد: jebal.ads@gmail.com</p>
+            <p className="text-xs text-blue-800">كلمة المرور: 91037366Asd</p>
+          </div>
         </div>
       </div>
     </div>
