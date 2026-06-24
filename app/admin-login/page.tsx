@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      const trimmedEmail = email.trim();
+      const trimmedEmail = email.trim().toLowerCase();
       const trimmedPassword = password.trim();
 
       if (trimmedEmail === ADMIN_EMAIL && trimmedPassword === ADMIN_PASSWORD) {
