@@ -72,12 +72,17 @@ export const authUtils = {
   // Admin Login
   adminLogin: async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
     try {
-      console.log('[v0] Admin login attempt with email:', email);
-      console.log('[v0] Expected email: jebal.ads@gmail.com');
-      console.log('[v0] Email match:', email === 'jebal.ads@gmail.com');
-      console.log('[v0] Password match:', password === '91037366Asd');
+      const normalizedEmail = email.trim().toLowerCase();
+      const normalizedPassword = password.trim();
       
-      if (email === 'jebal.ads@gmail.com' && password === '91037366Asd') {
+      console.log('[v0] Admin login attempt - normalized email:', normalizedEmail);
+      console.log('[v0] Expected email (normalized):', 'jebal.ads@gmail.com');
+      console.log('[v0] Email match:', normalizedEmail === 'jebal.ads@gmail.com');
+      console.log('[v0] Password input length:', normalizedPassword.length);
+      console.log('[v0] Expected password: 91037366Asd');
+      console.log('[v0] Password match:', normalizedPassword === '91037366Asd');
+      
+      if (normalizedEmail === 'jebal.ads@gmail.com' && normalizedPassword === '91037366Asd') {
         const adminUser: User = {
           id: 'admin-001',
           email: 'jebal.ads@gmail.com',
@@ -89,7 +94,7 @@ export const authUtils = {
         const token = btoa(JSON.stringify({ ...adminUser, timestamp: Date.now() }));
         localStorage.setItem(AUTH_STORAGE_KEY, token);
 
-        console.log('[v0] Admin login successful');
+        console.log('[v0] Admin login successful - user:', adminUser);
         return { success: true, user: adminUser };
       }
 

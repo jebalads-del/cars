@@ -25,23 +25,27 @@ export default function AdminLoginPage() {
     setIsLoading(true);
 
     try {
-      console.log('[v0] Admin login attempt:', { email });
+      const trimmedEmail = email.trim();
+      const trimmedPassword = password.trim();
       
-      const result = await authUtils.adminLogin(email, password);
+      console.log('[v0] Admin login attempt with:', { trimmedEmail, passwordLength: trimmedPassword.length });
+      console.log('[v0] Expected:', { expectedEmail: 'jebal.ads@gmail.com', expectedPasswordLength: 14 });
+      
+      const result = await authUtils.adminLogin(trimmedEmail, trimmedPassword);
 
       console.log('[v0] Admin login result:', result);
 
       if (result.success) {
-        setTimeout(() => {
-          router.push('/dashboard');
-        }, 100);
+        // Ensure localStorage is synced before redirecting
+        await new Promise(resolve => setTimeout(resolve, 200));
+        router.push('/dashboard');
       } else {
         setError(result.error || 'خطأ في تسجيل الدخول');
+        setIsLoading(false);
       }
     } catch (err) {
       console.log('[v0] Admin login error:', err);
       setError('حدث خطأ أثناء تسجيل الدخول');
-    } finally {
       setIsLoading(false);
     }
   };
