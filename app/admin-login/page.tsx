@@ -31,16 +31,6 @@ export default function AdminLoginPage() {
       const trimmedEmail = email.trim().toLowerCase();
       const trimmedPassword = password.trim();
 
-      console.log('[v0] Admin Login Debug:');
-      console.log('[v0] Input Email:', email);
-      console.log('[v0] Trimmed Email:', trimmedEmail);
-      console.log('[v0] Expected Email:', ADMIN_EMAIL);
-      console.log('[v0] Email Match:', trimmedEmail === ADMIN_EMAIL);
-      console.log('[v0] Input Password Length:', password.length);
-      console.log('[v0] Trimmed Password:', trimmedPassword);
-      console.log('[v0] Expected Password:', ADMIN_PASSWORD);
-      console.log('[v0] Password Match:', trimmedPassword === ADMIN_PASSWORD);
-
       if (trimmedEmail === ADMIN_EMAIL && trimmedPassword === ADMIN_PASSWORD) {
         const adminUser = {
           id: 'admin-001',
@@ -155,13 +145,6 @@ export default function AdminLoginPage() {
             >
               العودة للدخول العام
             </Link>
-          </div>
-
-          {/* Demo Credentials */}
-          <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
-            <p className="text-sm text-blue-900 font-semibold mb-2">بيانات دخول المسؤول:</p>
-            <p className="text-xs text-blue-800 font-mono select-all">jebal.ads@gmail.com</p>
-            <p className="text-xs text-blue-800 font-mono select-all mt-1">91037366Asd</p>
           </div>
         </div>
       </div>

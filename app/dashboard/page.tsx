@@ -115,66 +115,65 @@ export default function DashboardPage() {
       <Header />
       <main className="min-h-screen bg-background">
         {/* Dashboard Header */}
-        <div className="bg-white border-b border-border py-6 px-4 sticky top-0 z-40">
+        <div className="bg-white border-b border-border py-3 px-4 sticky top-0 z-40">
           <div className="container mx-auto flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-black text-foreground">لوحة التحكم</h1>
-              <p className="text-muted-foreground mt-1">مرحباً {user.email}</p>
+              <h1 className="text-2xl font-black text-foreground">لوحة التحكم</h1>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-destructive text-white font-semibold rounded-lg hover:bg-destructive/90 transition-colors"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-destructive text-white font-semibold rounded hover:bg-destructive/90 transition-colors"
             >
-              <LogOut className="w-5 h-5" />
-              تسجيل خروج
+              <LogOut className="w-4 h-4" />
+              خروج
             </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex gap-4 border-b border-border mb-8 overflow-x-auto">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex gap-2 border-b border-border mb-6 overflow-x-auto">
             <button
               onClick={() => setActiveTab('ads')}
-              className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${
+              className={`px-4 py-2 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${
                 activeTab === 'ads'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              إدارة الإعلانات
+              الإعلانات
             </button>
             <button
               onClick={() => setActiveTab('settings')}
-              className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-2 ${
+              className={`px-4 py-2 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-1 ${
                 activeTab === 'settings'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Settings className="w-4 h-4" />
-              إعدادات الموقع
+              <Settings className="w-3 h-3" />
+              الإعدادات
             </button>
             <button
               onClick={() => setActiveTab('payments')}
-              className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-2 ${
+              className={`px-4 py-2 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-1 ${
                 activeTab === 'payments'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              <CreditCard className="w-4 h-4" />
-              طرق الدفع
+              <CreditCard className="w-3 h-3" />
+              الدفع
             </button>
             <button
               onClick={() => setActiveTab('currency')}
-              className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-2 ${
+              className={`px-4 py-2 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors flex items-center gap-1 ${
                 activeTab === 'currency'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              <DollarSign className="w-4 h-4" />
+              <DollarSign className="w-3 h-3" />
               العملات
             </button>
           </div>
@@ -183,29 +182,29 @@ export default function DashboardPage() {
           {activeTab === 'ads' && (
             <div>
               {/* Stats */}
-              <div className="grid md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white p-6 rounded-lg border border-border">
-                  <p className="text-muted-foreground text-sm font-semibold mb-2">إجمالي الإعلانات</p>
-                  <p className="text-4xl font-black text-primary">{cars.length}</p>
+              <div className="grid md:grid-cols-4 gap-3 mb-6">
+                <div className="bg-white p-4 rounded border border-border">
+                  <p className="text-muted-foreground text-xs font-semibold mb-1">الإجمالي</p>
+                  <p className="text-2xl font-black text-primary">{cars.length}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg border border-border">
-                  <p className="text-muted-foreground text-sm font-semibold mb-2">قيد الانتظار</p>
-                  <p className="text-4xl font-black text-yellow-600">{pendingCars.length}</p>
+                <div className="bg-white p-4 rounded border border-border">
+                  <p className="text-muted-foreground text-xs font-semibold mb-1">معلقة</p>
+                  <p className="text-2xl font-black text-yellow-600">{pendingCars.length}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg border border-border">
-                  <p className="text-muted-foreground text-sm font-semibold mb-2">المعتمدة</p>
-                  <p className="text-4xl font-black text-green-600">{approvedCars.length}</p>
+                <div className="bg-white p-4 rounded border border-border">
+                  <p className="text-muted-foreground text-xs font-semibold mb-1">معتمدة</p>
+                  <p className="text-2xl font-black text-green-600">{approvedCars.length}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg border border-border">
-                  <p className="text-muted-foreground text-sm font-semibold mb-2">المميزة</p>
-                  <p className="text-4xl font-black text-blue-600">{cars.filter((c) => c.isFeatured).length}</p>
+                <div className="bg-white p-4 rounded border border-border">
+                  <p className="text-muted-foreground text-xs font-semibold mb-1">مميزة</p>
+                  <p className="text-2xl font-black text-blue-600">{cars.filter((c) => c.isFeatured).length}</p>
                 </div>
               </div>
 
               {/* Pending Ads */}
               {pendingCars.length > 0 && (
-                <div className="mb-8">
-                  <h2 className="text-2xl font-black text-foreground mb-4">الإعلانات قيد الانتظار</h2>
+                <div className="mb-6">
+                  <h2 className="text-lg font-black text-foreground mb-3">إعلانات معلقة</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {pendingCars.map((car) => (
                       <div key={car.id} className="bg-white border border-border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
@@ -246,7 +245,7 @@ export default function DashboardPage() {
 
               {/* Approved Ads Table */}
               <div>
-                <h2 className="text-2xl font-black text-foreground mb-4">الإعلانات المعتمدة</h2>
+                <h2 className="text-lg font-black text-foreground mb-3">إعلانات معتمدة</h2>
                 <div className="bg-white border border-border rounded-lg overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -330,9 +329,9 @@ export default function DashboardPage() {
 
           {/* Settings Tab */}
           {activeTab === 'settings' && (
-            <div className="space-y-6">
-              <div className="bg-white border border-border rounded-lg p-6">
-                <h3 className="text-xl font-black text-foreground mb-6">إعدادات الموقع</h3>
+            <div className="space-y-4">
+              <div className="bg-white border border-border rounded-lg p-4">
+                <h3 className="text-lg font-black text-foreground mb-4">إعدادات الموقع</h3>
                 
                 <div className="space-y-4">
                   {/* Maintenance Mode */}
@@ -369,9 +368,9 @@ export default function DashboardPage() {
 
           {/* Payments Tab */}
           {activeTab === 'payments' && (
-            <div className="space-y-6">
-              <div className="bg-white border border-border rounded-lg p-6">
-                <h3 className="text-xl font-black text-foreground mb-6">طرق الدفع</h3>
+            <div className="space-y-4">
+              <div className="bg-white border border-border rounded-lg p-4">
+                <h3 className="text-lg font-black text-foreground mb-4">طرق الدفع</h3>
                 
                 <div className="space-y-4">
                   {/* PayPal */}
@@ -428,9 +427,9 @@ export default function DashboardPage() {
 
           {/* Currency Tab */}
           {activeTab === 'currency' && (
-            <div className="space-y-6">
-              <div className="bg-white border border-border rounded-lg p-6">
-                <h3 className="text-xl font-black text-foreground mb-6">اختيار العملة الافتراضية</h3>
+            <div className="space-y-4">
+              <div className="bg-white border border-border rounded-lg p-4">
+                <h3 className="text-lg font-black text-foreground mb-4">اختيار العملة</h3>
                 
                 <div className="space-y-4">
                   <div>
