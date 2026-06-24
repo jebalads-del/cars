@@ -18,6 +18,9 @@ export interface Car {
   images: string[];
   description: string;
   status: 'available' | 'sold' | 'pending';
+  isFeatured: boolean;
+  isApproved: boolean;
+  publisherId: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -40,14 +40,14 @@ export function Header() {
               {AR_TRANSLATIONS.cars}
             </Link>
             <Link
-              href="/admin"
+              href="/login"
               className={`transition-colors px-4 py-2 rounded-lg ${
-                pathname === '/admin'
+                pathname === '/login' || pathname === '/dashboard'
                   ? 'bg-primary text-primary-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
               }`}
             >
-              {AR_TRANSLATIONS.admin}
+              دخول
             </Link>
           </nav>
         </div>

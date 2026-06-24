@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default function Home() {
-  const featuredCars = initialCars.slice(0, 3);
+  const featuredCars = initialCars.filter((c) => c.isFeatured && c.isApproved).slice(0, 3);
 
   return (
     <>
