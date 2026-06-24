@@ -1,12 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AR_TRANSLATIONS } from '@/lib/types';
 import { authUtils } from '@/lib/auth';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 
 export function Header() {
+  const router = useRouter();
   const pathname = usePathname();
   const [user, setUser] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
@@ -16,6 +19,11 @@ export function Header() {
     const currentUser = authUtils.getCurrentUser();
     setUser(currentUser);
   }, []);
+
+  const handleLogout = () => {
+    authUtils.logout();
+    router.push('/login');
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
@@ -49,6 +57,28 @@ export function Header() {
             >
               {AR_TRANSLATIONS.cars}
             </Link>
+            {mounted && user?.role === 'admin' && (
+              <>
+                <Link
+                  href="/dashboard"
+                  className={`transition-colors px-4 py-2 rounded-lg flex items-center gap-2 ${
+                    pathname === '/dashboard'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                  }`}
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  لوحة التحكم
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="transition-colors px-4 py-2 rounded-lg flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary"
+                >
+                  <LogOut className="w-4 h-4" />
+                  تسجيل خروج
+                </button>
+              </>
+            )}
             {mounted && !user && (
               <Link
                 href="/login"
