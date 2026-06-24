@@ -5,6 +5,8 @@ import { initialCars } from '@/lib/car-data';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Zap, Check } from 'lucide-react';
 import Link from 'next/link';
+import { formatPrice } from '@/lib/currency';
+import { AR_TRANSLATIONS } from '@/lib/types';
 
 export default function CarDetailPage({ params }: { params: { id: string } }) {
   const car = initialCars.find((c) => c.id === params.id);
@@ -25,7 +27,7 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-semibold"
             >
               <ArrowLeft className="w-5 h-5" />
-              Back to Inventory
+              العودة للمخزون
             </Link>
           </div>
         </section>
@@ -42,8 +44,8 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
                   </div>
                 </div>
                 <div className="mt-6 p-4 bg-secondary rounded-lg border border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Vehicle Status</p>
-                  <p className="text-lg font-bold text-primary capitalize">{car.status}</p>
+                  <p className="text-sm text-muted-foreground mb-2">حالة السيارة</p>
+                  <p className="text-lg font-bold text-primary capitalize">{car.status === 'available' ? 'متاحة' : car.status === 'sold' ? 'مباعة' : 'قيد الانتظار'}</p>
                 </div>
               </div>
 
@@ -59,9 +61,9 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
                       <p className="text-lg text-muted-foreground mt-2">{car.year} • {car.color}</p>
                     </div>
                     <div className="text-right bg-primary/10 border border-primary/30 rounded-lg p-4">
-                      <p className="text-sm text-muted-foreground mb-1">Price</p>
+                      <p className="text-sm text-muted-foreground mb-1">السعر</p>
                       <p className="text-3xl font-black text-primary">
-                        ${(car.price / 1000).toFixed(0)}K
+                        {formatPrice(car.price, car.currency)}
                       </p>
                     </div>
                   </div>
@@ -75,34 +77,34 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
                 {/* Specs Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Transmission</p>
+                    <p className="text-sm text-muted-foreground mb-2">ناقل الحركة</p>
                     <p className="font-bold text-foreground">{car.transmission}</p>
                   </div>
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Fuel Type</p>
+                    <p className="text-sm text-muted-foreground mb-2">نوع الوقود</p>
                     <p className="font-bold text-foreground">{car.fuelType}</p>
                   </div>
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Engine</p>
+                    <p className="text-sm text-muted-foreground mb-2">حجم المحرك</p>
                     <p className="font-bold text-foreground">{car.engineSize}</p>
                   </div>
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Horsepower</p>
+                    <p className="text-sm text-muted-foreground mb-2">قوة الحصان</p>
                     <p className="font-bold text-foreground">{car.horsepower} HP</p>
                   </div>
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Mileage</p>
-                    <p className="font-bold text-foreground">{car.mileage.toLocaleString()} miles</p>
+                    <p className="text-sm text-muted-foreground mb-2">المسافة المقطوعة</p>
+                    <p className="font-bold text-foreground">{car.mileage.toLocaleString('ar-SA')} كم</p>
                   </div>
                   <div className="p-4 bg-secondary rounded-lg border border-border">
-                    <p className="text-sm text-muted-foreground mb-2">Year</p>
+                    <p className="text-sm text-muted-foreground mb-2">السنة</p>
                     <p className="font-bold text-foreground">{car.year}</p>
                   </div>
                 </div>
 
                 {/* Features */}
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-4">Key Features</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-4">الميزات الرئيسية</h3>
                   <div className="space-y-3">
                     {car.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3">

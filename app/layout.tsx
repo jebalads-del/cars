@@ -10,8 +10,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Swift Motors - Premium Car Dealership',
-  description: 'Discover luxury and performance vehicles at Swift Motors. Browse our curated collection of premium cars.',
+  title: 'سويفت موتورز - وكالة السيارات الفاخرة',
+  description: 'اكتشف السيارات الفاخرة والأداء العالي في سويفت موتورز. استعرض مجموعتنا المختارة من السيارات الفاخرة.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -45,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`}>
-      <body className="font-sans antialiased bg-background text-foreground">
+    <html lang="ar" dir="rtl" className={`${geistSans.variable} ${geistMono.variable} dark`}>
+      <body className="font-sans antialiased bg-background text-foreground" dir="rtl">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

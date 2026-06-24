@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { CarCard } from '@/components/car-card';
 import { initialCars } from '@/lib/car-data';
 import { Search } from 'lucide-react';
+import { AR_TRANSLATIONS } from '@/lib/types';
 
 export default function CarsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,9 +28,9 @@ export default function CarsPage() {
         {/* Page Header */}
         <section className="py-16 px-4 border-b border-border bg-secondary/30">
           <div className="container mx-auto">
-            <h1 className="text-4xl md:text-5xl font-black text-foreground mb-4">Our Inventory</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-foreground mb-4">{AR_TRANSLATIONS.allVehicles}</h1>
             <p className="text-lg text-muted-foreground">
-              Browse our complete collection of premium vehicles
+              {AR_TRANSLATIONS.browseOurFullInventory}
             </p>
           </div>
         </section>
@@ -41,16 +42,16 @@ export default function CarsPage() {
               {/* Search */}
               <div>
                 <label className="block text-sm font-semibold text-foreground mb-3">
-                  Search by Make or Model
+                  {AR_TRANSLATIONS.search}
                 </label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
+                  <Search className="absolute right-3 top-3 w-5 h-5 text-muted-foreground" />
                   <input
                     type="text"
                     placeholder="BMW, Mercedes, Porsche..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full pl-4 pr-10 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary text-right"
                   />
                 </div>
               </div>
@@ -58,14 +59,14 @@ export default function CarsPage() {
               {/* Fuel Type Filter */}
               <div>
                 <label className="block text-sm font-semibold text-foreground mb-3">
-                  Fuel Type
+                  نوع الوقود
                 </label>
                 <select
                   value={selectedFuel}
                   onChange={(e) => setSelectedFuel(e.target.value)}
-                  className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer"
+                  className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer text-right"
                 >
-                  <option value="all">All Fuel Types</option>
+                  <option value="all">جميع أنواع الوقود</option>
                   {fuelTypes.map((fuel) => (
                     <option key={fuel} value={fuel}>
                       {fuel}
@@ -83,8 +84,7 @@ export default function CarsPage() {
             {filteredCars.length > 0 ? (
               <>
                 <p className="text-sm text-muted-foreground mb-8">
-                  Showing <span className="text-primary font-bold">{filteredCars.length}</span> vehicle
-                  {filteredCars.length !== 1 ? 's' : ''}
+                  يتم عرض <span className="text-primary font-bold">{filteredCars.length}</span> سيارة
                 </p>
                 <div className="grid md:grid-cols-3 gap-8">
                   {filteredCars.map((car) => (
@@ -94,7 +94,7 @@ export default function CarsPage() {
               </>
             ) : (
               <div className="text-center py-16">
-                <p className="text-xl text-muted-foreground mb-4">No vehicles found matching your criteria</p>
+                <p className="text-xl text-muted-foreground mb-4">{AR_TRANSLATIONS.noResults}</p>
                 <button
                   onClick={() => {
                     setSearchTerm('');
@@ -102,7 +102,7 @@ export default function CarsPage() {
                   }}
                   className="px-6 py-2 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
                 >
-                  Clear Filters
+                  مسح المرشحات
                 </button>
               </div>
             )}
@@ -112,7 +112,7 @@ export default function CarsPage() {
         {/* Footer */}
         <footer className="py-12 px-4 border-t border-border bg-secondary/30">
           <div className="container mx-auto text-center text-muted-foreground">
-            <p>© 2024 Swift Motors. All rights reserved.</p>
+            <p>© 2024 سويفت موتورز. جميع الحقوق محفوظة.</p>
           </div>
         </footer>
       </main>

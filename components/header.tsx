@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { AR_TRANSLATIONS } from '@/lib/types';
 
 export function Header() {
   const pathname = usePathname();
@@ -14,7 +15,7 @@ export function Header() {
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">⚡</span>
             </div>
-            <span className="hidden sm:inline font-bold text-xl text-foreground">Swift Motors</span>
+            <span className="hidden sm:inline font-bold text-xl text-foreground">سويفت موتورز</span>
           </Link>
 
           <nav className="flex items-center gap-8">
@@ -26,7 +27,7 @@ export function Header() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Home
+              {AR_TRANSLATIONS.home}
             </Link>
             <Link
               href="/cars"
@@ -36,7 +37,7 @@ export function Header() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Inventory
+              {AR_TRANSLATIONS.cars}
             </Link>
             <Link
               href="/admin"
@@ -46,7 +47,7 @@ export function Header() {
                   : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
               }`}
             >
-              Admin
+              {AR_TRANSLATIONS.admin}
             </Link>
           </nav>
         </div>

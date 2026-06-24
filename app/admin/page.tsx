@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/header';
-import type { Car } from '@/lib/types';
+import type { Car, Currency, CURRENCIES } from '@/lib/types';
 import { initialCars } from '@/lib/car-data';
 import { Trash2, Edit2, Plus, LogOut } from 'lucide-react';
+import { formatPrice, getCurrencyName } from '@/lib/currency';
+import { AR_TRANSLATIONS } from '@/lib/types';
 
 const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'swift2024';
@@ -21,10 +23,11 @@ export default function AdminPage() {
     model: '',
     year: new Date().getFullYear(),
     price: 0,
+    currency: 'KWD',
     mileage: 0,
     color: '',
-    transmission: 'Automatic',
-    fuelType: 'Gasoline',
+    transmission: 'أوتوماتيك',
+    fuelType: 'بنزين',
     engineSize: '',
     horsepower: 0,
     features: [],
