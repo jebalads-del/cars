@@ -31,6 +31,16 @@ export default function AdminLoginPage() {
       const trimmedEmail = email.trim().toLowerCase();
       const trimmedPassword = password.trim();
 
+      console.log('[v0] Email input value:', email);
+      console.log('[v0] Email trimmed:', trimmedEmail);
+      console.log('[v0] Email expected:', ADMIN_EMAIL);
+      console.log('[v0] Emails equal:', trimmedEmail === ADMIN_EMAIL);
+      console.log('[v0] Password input value:', password);
+      console.log('[v0] Password trimmed:', trimmedPassword);
+      console.log('[v0] Password expected:', ADMIN_PASSWORD);
+      console.log('[v0] Passwords equal:', trimmedPassword === ADMIN_PASSWORD);
+      console.log('[v0] BOTH MATCH:', trimmedEmail === ADMIN_EMAIL && trimmedPassword === ADMIN_PASSWORD);
+
       if (trimmedEmail === ADMIN_EMAIL && trimmedPassword === ADMIN_PASSWORD) {
         const adminUser = {
           id: 'admin-001',
