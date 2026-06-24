@@ -3,8 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { authUtils } from '@/lib/auth';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+
+const ADMIN_EMAIL = 'jebal.ads@gmail.com';
+const ADMIN_PASSWORD = '91037366Asd';
+const AUTH_STORAGE_KEY = 'swift_auth';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -27,24 +30,27 @@ export default function AdminLoginPage() {
     try {
       const trimmedEmail = email.trim();
       const trimmedPassword = password.trim();
-      
-      console.log('[v0] Admin login attempt with:', { trimmedEmail, passwordLength: trimmedPassword.length });
-      console.log('[v0] Expected:', { expectedEmail: 'jebal.ads@gmail.com', expectedPasswordLength: 14 });
-      
-      const result = await authUtils.adminLogin(trimmedEmail, trimmedPassword);
 
-      console.log('[v0] Admin login result:', result);
+      if (trimmedEmail === ADMIN_EMAIL && trimmedPassword === ADMIN_PASSWORD) {
+        const adminUser = {
+          id: 'admin-001',
+          email: ADMIN_EMAIL,
+          username: 'admin',
+          role: 'admin',
+          createdAt: new Date().toISOString(),
+        };
 
-      if (result.success) {
-        // Ensure localStorage is synced before redirecting
-        await new Promise(resolve => setTimeout(resolve, 200));
-        router.push('/dashboard');
+        const token = btoa(JSON.stringify({ ...adminUser, timestamp: Date.now() }));
+        localStorage.setItem(AUTH_STORAGE_KEY, token);
+        
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 100);
       } else {
-        setError(result.error || 'خطأ في تسجيل الدخول');
+        setError('بريد إلكتروني أو كلمة مرور غير صحيحة');
         setIsLoading(false);
       }
     } catch (err) {
-      console.log('[v0] Admin login error:', err);
       setError('حدث خطأ أثناء تسجيل الدخول');
       setIsLoading(false);
     }
@@ -90,6 +96,7 @@ export default function AdminLoginPage() {
                   placeholder="admin@example.com"
                   className="w-full pr-10 pl-4 py-3 border border-border rounded-lg bg-input focus:outline-none focus:ring-2 focus:ring-primary text-right"
                   required
+                  autoFocus
                 />
               </div>
             </div>
@@ -143,8 +150,8 @@ export default function AdminLoginPage() {
           {/* Demo Credentials */}
           <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
             <p className="text-sm text-blue-900 font-semibold mb-2">بيانات دخول المسؤول:</p>
-            <p className="text-xs text-blue-800">البريد: jebal.ads@gmail.com</p>
-            <p className="text-xs text-blue-800">كلمة المرور: 91037366Asd</p>
+            <p className="text-xs text-blue-800 font-mono select-all">jebal.ads@gmail.com</p>
+            <p className="text-xs text-blue-800 font-mono select-all mt-1">91037366Asd</p>
           </div>
         </div>
       </div>
