@@ -70,12 +70,12 @@ export const authUtils = {
   },
 
   // Admin Login
-  adminLogin: async (username: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
+  adminLogin: async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
     try {
-      if (username === 'admin' && password === 'swift2024') {
+      if (email === 'jebal.ads@gmail.com' && password === '91037366Asd') {
         const adminUser: User = {
           id: 'admin-001',
-          email: 'admin@swiftmotors.com',
+          email: 'jebal.ads@gmail.com',
           username: 'admin',
           role: 'admin',
           createdAt: new Date().toISOString(),

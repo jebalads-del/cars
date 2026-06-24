@@ -12,16 +12,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
-    const result = await authUtils.login(email, password);
+    let result;
+    if (isAdmin) {
+      result = await authUtils.adminLogin(email, password);
+    } else {
+      result = await authUtils.login(email, password);
+    }
 
     if (result.success) {
-      router.push('/');
+      router.push(isAdmin ? '/dashboard' : '/');
     } else {
       setError(result.error || 'خطأ في تسجيل الدخول');
     }
@@ -45,6 +51,32 @@ export default function LoginPage() {
               <p className="text-red-700 text-sm">{error}</p>
             </div>
           )}
+
+          {/* Admin Toggle */}
+          <div className="mb-6 flex items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsAdmin(!isAdmin)}
+              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                isAdmin
+                  ? 'bg-primary text-white'
+                  : 'bg-secondary text-foreground hover:bg-secondary/80'
+              }`}
+            >
+              دخول المسؤول
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsAdmin(!isAdmin)}
+              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                !isAdmin
+                  ? 'bg-primary text-white'
+                  : 'bg-secondary text-foreground hover:bg-secondary/80'
+              }`}
+            >
+              دخول المستخدم
+            </button>
+          </div>
 
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-4">
@@ -122,9 +154,9 @@ export default function LoginPage() {
 
         {/* Demo Credentials */}
         <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
-          <p className="text-sm text-blue-900 font-semibold mb-2">بيانات اختبار للمسؤول:</p>
-          <p className="text-xs text-blue-800">البريد: admin@swiftmotors.com</p>
-          <p className="text-xs text-blue-800">كلمة المرور: swift2024</p>
+          <p className="text-sm text-blue-900 font-semibold mb-2">بيانات دخول المسؤول:</p>
+          <p className="text-xs text-blue-800">البريد: jebal.ads@gmail.com</p>
+          <p className="text-xs text-blue-800">كلمة المرور: 91037366Asd</p>
         </div>
       </div>
     </div>
