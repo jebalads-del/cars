@@ -72,6 +72,11 @@ export const authUtils = {
   // Admin Login
   adminLogin: async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
     try {
+      console.log('[v0] Admin login attempt with email:', email);
+      console.log('[v0] Expected email: jebal.ads@gmail.com');
+      console.log('[v0] Email match:', email === 'jebal.ads@gmail.com');
+      console.log('[v0] Password match:', password === '91037366Asd');
+      
       if (email === 'jebal.ads@gmail.com' && password === '91037366Asd') {
         const adminUser: User = {
           id: 'admin-001',
@@ -84,11 +89,14 @@ export const authUtils = {
         const token = btoa(JSON.stringify({ ...adminUser, timestamp: Date.now() }));
         localStorage.setItem(AUTH_STORAGE_KEY, token);
 
+        console.log('[v0] Admin login successful');
         return { success: true, user: adminUser };
       }
 
+      console.log('[v0] Admin login failed - invalid credentials');
       return { success: false, error: 'بيانات الدخول غير صحيحة' };
     } catch (error) {
+      console.log('[v0] Admin login error:', error);
       return { success: false, error: 'حدث خطأ أثناء تسجيل الدخول' };
     }
   },

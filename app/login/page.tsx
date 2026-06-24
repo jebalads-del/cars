@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { authUtils } from '@/lib/auth';
@@ -13,27 +13,48 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
-    let result;
-    if (isAdmin) {
-      result = await authUtils.adminLogin(email, password);
-    } else {
-      result = await authUtils.login(email, password);
-    }
+    try {
+      console.log('[v0] Login attempt:', { email, isAdmin });
+      
+      let result;
+      if (isAdmin) {
+        result = await authUtils.adminLogin(email, password);
+      } else {
+        result = await authUtils.login(email, password);
+      }
 
-    if (result.success) {
-      router.push(isAdmin ? '/dashboard' : '/');
-    } else {
-      setError(result.error || 'خطأ في تسجيل الدخول');
-    }
+      console.log('[v0] Login result:', result);
 
-    setIsLoading(false);
+      if (result.success) {
+        // Add a small delay to ensure localStorage is written
+        setTimeout(() => {
+          router.push(isAdmin ? '/dashboard' : '/');
+        }, 100);
+      } else {
+        setError(result.error || 'خطأ في تسجيل الدخول');
+      }
+    } catch (err) {
+      console.log('[v0] Login error:', err);
+      setError('حدث خطأ أثناء تسجيل الدخول');
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4 py-12">
