@@ -1,15 +1,1 @@
-{
-  "expo": {
-    "extra": {
-      "eas": {
-        "projectId": "69585f4a-ff90-4997-b242-a109278490b7"
-      }
-    },
-    "android": {
-    "adaptiveIcon": {
-      "foregroundImage": "./assets/adaptive-icon.png",
-      "backgroundColor": "#ffffff"
-"package": "com.ahmed486.auto"
-    }
-  }
-}
+{"expo":{"extra":{"eas":{"projectId":"69585f4a-ff90-4997-b242-a109278490b7"}},"android":{"package":"com.ahmed486.auto","adaptiveIcon":{"foregroundImage":"./assets/adaptive-icon.png","backgroundColor":"#ffffff"}}}}
