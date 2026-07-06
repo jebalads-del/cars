@@ -1,6 +1,8 @@
 {
   "name": "auto",
   "private": true,
+  "main": "expo-router/entry",
+
   "scripts": {
     "build": "vite build",
     "dev": "vite"
