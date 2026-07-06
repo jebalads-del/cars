@@ -1,1 +1,1 @@
-import { registerRootComponent } from 'expo'; import App from './src/App.tsx'; registerRootComponent(App);
+import { registerRootComponent } from 'expo'; import { Text, View } from 'react-native'; function App() { return ( <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>App is Ready!</Text></View> ); } registerRootComponent(App);
